@@ -4,7 +4,7 @@
 
 ```bash
 cd log_management
-python setup.py
+python setup.py install
 tensorboard --logdir=<YOUR_LOG_DIR>
 ```
 
