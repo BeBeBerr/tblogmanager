@@ -1,5 +1,7 @@
 # Tensorboard Log Management
 
+![screenshot](docs/screenshot.png)
+
 ## Usage
 
 ```bash
