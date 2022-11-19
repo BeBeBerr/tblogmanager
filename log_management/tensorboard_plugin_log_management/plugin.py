@@ -3,6 +3,7 @@ import os
 import shutil
 
 from werkzeug import wrappers
+import json
 
 from tensorboard import errors
 from tensorboard import plugin_util
@@ -38,14 +39,15 @@ class LogManagement(base_plugin.TBPlugin):
     @wrappers.Request.application
     def _serve_folders(self, request):
         files = list(os.listdir(self.log_path))
+        files.sort()
         full_path_files = list(map(lambda x: os.path.join(self.log_path, x), files))
 
-        folder_info = {}
+        folder_info = []
         for i, each in enumerate(full_path_files):
             if os.path.isdir(each):
-                folder_info[files[i]] = full_path_files[i]
+                folder_info.append(files[i])
 
-        return http_util.Respond(request, folder_info, "application/json")
+        return http_util.Respond(request, json.dumps({"folders": folder_info}), "application/json")
 
     @wrappers.Request.application
     def _serve_rename(self, request):
